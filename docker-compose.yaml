@@ -1,0 +1,28 @@
+services:
+  app:
+    container_name: devops-container
+    build: .
+    depends_on:
+      - database
+    ports:
+      - "6666:7777"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/test_db
+      SPRING_DATASOURCE_USERNAME: tester
+      SPRING_DATASOURCE_PASSWORD: test1234
+    restart: always
+    links: 
+      - database
+
+  database:
+    image: mysql:latest
+    container_name: spring-db
+    environment:
+      MYSQL_ROOT_PASSWORD: tiger
+      MYSQL_DATABASE: test_db
+      MYSQL_USER: tester
+      MYSQL_PASSWORD: test1234
+    volumes:
+      - ./src/main/resources/db_config/initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - "6033:3306"

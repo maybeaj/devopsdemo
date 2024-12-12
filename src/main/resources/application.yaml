@@ -1,0 +1,12 @@
+server:
+  port: 7777
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:6033/test_db
+    username: tester
+    password: test1234
+
+mybatis:
+  mapper-locations: mappers/*.xml
